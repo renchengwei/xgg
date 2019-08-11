@@ -2,15 +2,11 @@ package com.xgg.auth.session.config;
 
 import com.xgg.auth.session.SecurityConstants;
 import com.xgg.auth.session.SecurityUserDetailsManager;
-import com.xgg.auth.session.handler.XggAuthenticationFailureHandler;
-import com.xgg.auth.session.handler.XggAuthenticationSuccessHandler;
-import com.xgg.auth.session.properties.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
@@ -27,14 +23,9 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true,jsr250Enabled = true)
-public class SessionSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SessionSecurityConfig extends AbstractChannelSecurityConfig {
 
-    @Resource
-    private XggAuthenticationFailureHandler xggAuthenticationFailureHandler;
-    @Resource
-    private XggAuthenticationSuccessHandler xggAuthenticationSuccessHandler;
-    @Resource
-    private SecurityProperties securityProperties;
+
     @Resource
     private DataSource dataSource;
     @Resource
@@ -72,19 +63,24 @@ public class SessionSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.apply(smsAuthenticationSecurityConfig);
         http.apply(captchaSecurityConfig);
+        applyPasswordAuthenticationConfig(http);
+        authorizeRequestsConfig(http);
+        rememberMeConfig(http);
+        sessionConfig(http);
+        http.csrf().disable();
+    }
 
-        http.formLogin()
-                .loginPage(securityProperties.getSession().getLoginPage())
-                .loginProcessingUrl(securityProperties.getSession().getLoginProcessingUrl())
-                .failureHandler(xggAuthenticationFailureHandler)
-                .successHandler(xggAuthenticationSuccessHandler)
-                .defaultSuccessUrl(securityProperties.getSession().getSuccessForwardUrl())
-                .failureForwardUrl(securityProperties.getSession().getFailureForwardUrl())
-                .and()
-                .authorizeRequests()
+    private void sessionConfig(HttpSecurity http) throws Exception {
+        http.sessionManagement()
+                .maximumSessions(securityProperties.getSession().getMaximumSessions())
+                .maxSessionsPreventsLogin(securityProperties.getSession().isMaxSessionsPreventsLogin())
+                .expiredUrl(securityProperties.getSession().getInvalidSessionUrl());
+    }
+
+    private void authorizeRequestsConfig(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
                 .antMatchers(securityProperties.getSession().getLoginPage(),
                         securityProperties.getSession().getLoginProcessingUrl(),
                         SecurityConstants.DEFAULT_LOGIN_PAGE_URL,
@@ -92,14 +88,14 @@ public class SessionSecurityConfig extends WebSecurityConfigurerAdapter {
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*")
                 .permitAll()
                 .anyRequest()
-                .authenticated()
-                .and()
-                .rememberMe()
+                .authenticated();
+    }
+
+    private void rememberMeConfig(HttpSecurity http) throws Exception {
+        http.rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(securityProperties.getSession().getRemberMeSeconds())
-                .userDetailsService(userDetailsManager)
-                .and()
-                .csrf().disable();
+                .userDetailsService(userDetailsManager);
     }
 
 }

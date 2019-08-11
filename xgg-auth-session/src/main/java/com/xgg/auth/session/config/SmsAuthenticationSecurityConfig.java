@@ -3,13 +3,13 @@ package com.xgg.auth.session.config;
 import com.xgg.auth.session.SecurityUserDetailsManager;
 import com.xgg.auth.session.authentication.SmsAuthenticationFilter;
 import com.xgg.auth.session.authentication.SmsAuthenticationProvider;
+import com.xgg.auth.session.handler.XggAuthenticationFailureHandler;
+import com.xgg.auth.session.handler.XggAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +21,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class SmsAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
     @Autowired
-    private AuthenticationFailureHandler authenticationFailureHandler;
+    private XggAuthenticationFailureHandler authenticationFailureHandler;
     @Autowired
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private XggAuthenticationSuccessHandler authenticationSuccessHandler;
     @Autowired
     private SecurityUserDetailsManager userDetailsManager;
     @Override

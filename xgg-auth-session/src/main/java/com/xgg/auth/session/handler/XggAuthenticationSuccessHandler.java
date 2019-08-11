@@ -29,7 +29,6 @@ public class XggAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         log.info("登录成功");
-        super.onAuthenticationSuccess(request, response, authentication);
 
         if(LoginTypeEnum.JSON.equals(securityProperties.getSession().getLoginType())){
             //返回json处理 默认也是json处理

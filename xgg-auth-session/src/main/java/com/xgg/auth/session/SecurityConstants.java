@@ -37,6 +37,11 @@ public class SecurityConstants {
      */
     public static final String DEFAULT_LOGIN_PAGE_URL = "/login.html";
     /**
+     * 默认退出页面
+     */
+    public static final String DEFAULT_LOGOUT_PAGE_URL = "/login.html";
+
+    /**
      * 验证图片验证码时，http请求中默认的携带图片验证码信息的参数的名称
      */
     public static final String DEFAULT_PARAMETER_NAME_CODE_IMAGE = "imageCode";
@@ -48,4 +53,8 @@ public class SecurityConstants {
      * 发送短信验证码 或 验证短信验证码时，传递手机号的参数的名称
      */
     public static final String DEFAULT_PARAMETER_NAME_MOBILE = "mobile";
+    /**
+     * 发送短信验证码 或 验证短信验证码时，传递手机号的参数的名称
+     */
+    public static final String DEFAULT_SESSION_INVALID_URL = "/login.html";
 }
