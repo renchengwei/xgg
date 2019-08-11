@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://192.168.58.251:3306/mytest?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
+      username: mytest
+      password: 123456
