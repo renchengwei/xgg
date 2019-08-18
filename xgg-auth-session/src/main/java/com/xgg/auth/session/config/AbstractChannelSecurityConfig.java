@@ -31,9 +31,9 @@ public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter 
         http.formLogin()
                 .loginPage(securityProperties.getSession().getLoginPage())
                 .loginProcessingUrl(securityProperties.getSession().getLoginProcessingUrl())
-                .failureHandler(xggAuthenticationFailureHandler)
-                .successHandler(xggAuthenticationSuccessHandler)
                 .defaultSuccessUrl(securityProperties.getSession().getSuccessForwardUrl())
-                .failureForwardUrl(securityProperties.getSession().getFailureForwardUrl());
+                .failureForwardUrl(securityProperties.getSession().getFailureForwardUrl())
+                .failureHandler(xggAuthenticationFailureHandler)
+                .successHandler(xggAuthenticationSuccessHandler);
     }
 }

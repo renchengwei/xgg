@@ -19,7 +19,7 @@ public abstract class AbstractCaptchaProcessor<C extends CaptchaVO> implements C
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
     @Resource
-    private CaptchaRepository captchaRepository;
+    protected CaptchaRepository captchaRepository;
 
     /**
      * 创建验证码
@@ -38,7 +38,7 @@ public abstract class AbstractCaptchaProcessor<C extends CaptchaVO> implements C
 
     protected abstract C generateCaptcha(ServletWebRequest request);
 
-    protected abstract void send(ServletWebRequest request, C captcha) throws IOException, ServletRequestBindingException;
+    protected abstract void send(ServletWebRequest request, C captcha) throws IOException;
 
     @Override
     public boolean support(CaptchaTypeEnum captchaTypeEnum) {
@@ -72,13 +72,13 @@ public abstract class AbstractCaptchaProcessor<C extends CaptchaVO> implements C
         if (!StringUtils.equals(captchaVO.getCode(), captchaInRequest)) {
             throw new CaptchaException(captchaType + "验证码不匹配");
         }
+
+        check(request, captchaVO);
+
         //验证成功清除缓存中的key
         captchaRepository.remove(request,captchaType);
     }
 
-    private void save(ServletWebRequest request, C captcha) {
-        CaptchaVO captchaVo = new CaptchaVO(captcha.getCode(),captcha.getExpireTime());
-        captchaRepository.save(request,captchaVo,getCondition());
-    }
-
+    protected abstract void save(ServletWebRequest request, C captcha);
+    protected abstract void check(ServletWebRequest request, CaptchaVO captcha);
 }

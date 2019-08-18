@@ -5,13 +5,14 @@ import com.xgg.auth.session.authentication.SmsAuthenticationFilter;
 import com.xgg.auth.session.authentication.SmsAuthenticationProvider;
 import com.xgg.auth.session.handler.XggAuthenticationFailureHandler;
 import com.xgg.auth.session.handler.XggAuthenticationSuccessHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @Author renchengwei
@@ -20,19 +21,19 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class SmsAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-    @Autowired
-    private XggAuthenticationFailureHandler authenticationFailureHandler;
-    @Autowired
-    private XggAuthenticationSuccessHandler authenticationSuccessHandler;
-    @Autowired
+    @Resource
+    private XggAuthenticationFailureHandler xggAuthenticationFailureHandler;
+    @Resource
+    private XggAuthenticationSuccessHandler xggAuthenticationSuccessHandler;
+    @Resource
     private SecurityUserDetailsManager userDetailsManager;
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
         SmsAuthenticationFilter filter = new SmsAuthenticationFilter();
         filter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-        filter.setAuthenticationFailureHandler(authenticationFailureHandler);
-        filter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
+        filter.setAuthenticationFailureHandler(xggAuthenticationFailureHandler);
+        filter.setAuthenticationSuccessHandler(xggAuthenticationSuccessHandler);
 
         SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();
         smsAuthenticationProvider.setUserDetailsManager(userDetailsManager);

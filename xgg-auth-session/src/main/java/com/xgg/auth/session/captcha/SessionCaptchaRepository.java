@@ -11,7 +11,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @Description: TODO
  */
 @Component
-public class SessionCaptchaRepository implements CaptchaRepository {
+public class SessionCaptchaRepository<C extends CaptchaVO> implements CaptchaRepository {
 
     /** 操作session的工具类 */
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
@@ -24,10 +24,10 @@ public class SessionCaptchaRepository implements CaptchaRepository {
     }
 
     @Override
-    public CaptchaVO get(ServletWebRequest request, CaptchaTypeEnum captchaType) {
+    public C get(ServletWebRequest request, CaptchaTypeEnum captchaType) {
         String sessionKey = getSessionKey(captchaType);
         // 拿到创建 create() 存储到session的code验证码对象
-        return (CaptchaVO) sessionStrategy.getAttribute(request, sessionKey);
+        return (C) sessionStrategy.getAttribute(request, sessionKey);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.xgg.auth.session.captcha.image;
 import com.xgg.auth.session.captcha.AbstractCaptchaProcessor;
 import com.xgg.auth.session.captcha.CaptchaGenerate;
 import com.xgg.auth.session.captcha.CaptchaTypeEnum;
+import com.xgg.auth.session.captcha.CaptchaVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,6 +38,17 @@ public class ImageCaptchaProcessor extends AbstractCaptchaProcessor<ImageCaptcha
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
         ImageIO.write(captcha.getImage(), FORMAT_NAME, response.getOutputStream());
+
+    }
+
+    @Override
+    protected void save(ServletWebRequest request, ImageCaptchaVO captcha) {
+        CaptchaVO captchaVo = new CaptchaVO(captcha.getCode(),captcha.getExpireTime());
+        captchaRepository.save(request,captchaVo,getCondition());
+    }
+
+    @Override
+    protected void check(ServletWebRequest request, CaptchaVO captcha) {
 
     }
 

@@ -1,7 +1,6 @@
 package com.xgg.auth.session.captcha.sms;
 
 import com.xgg.auth.session.captcha.CaptchaGenerate;
-import com.xgg.auth.session.captcha.CaptchaVO;
 import com.xgg.auth.session.properties.SecurityProperties;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;
@@ -20,8 +19,8 @@ public class SmsCaptchaGenerate implements CaptchaGenerate {
     private SecurityProperties securityProperties;
 
     @Override
-    public CaptchaVO generate() {
+    public SmsCaptchaVO generate() {
         String code = RandomStringUtils.randomNumeric(securityProperties.getCaptcha().getSms().getLength());
-        return new CaptchaVO(code, securityProperties.getCaptcha().getSms().getExpireSeconds());
+        return new SmsCaptchaVO(code, securityProperties.getCaptcha().getSms().getExpireSeconds());
     }
 }
