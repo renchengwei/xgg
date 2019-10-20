@@ -1,7 +1,7 @@
 package com.xgg.auth.session.config;
 
-import com.xgg.auth.session.SecurityConstants;
-import com.xgg.auth.session.SecurityUserDetailsManager;
+import com.xgg.auth.session.authentication.SecurityConstants;
+import com.xgg.auth.session.manager.SecurityUserDetailsManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

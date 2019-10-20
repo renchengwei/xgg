@@ -1,6 +1,6 @@
 package com.xgg.auth.session.captcha;
 
-import com.xgg.auth.session.SecurityConstants;
+import com.xgg.auth.session.authentication.SecurityConstants;
 import com.xgg.auth.session.handler.XggAuthenticationFailureHandler;
 import com.xgg.auth.session.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;

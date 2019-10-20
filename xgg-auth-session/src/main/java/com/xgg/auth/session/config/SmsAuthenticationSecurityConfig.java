@@ -1,6 +1,6 @@
 package com.xgg.auth.session.config;
 
-import com.xgg.auth.session.SecurityUserDetailsManager;
+import com.xgg.auth.session.manager.SecurityUserDetailsManager;
 import com.xgg.auth.session.authentication.SmsAuthenticationFilter;
 import com.xgg.auth.session.authentication.SmsAuthenticationProvider;
 import com.xgg.auth.session.handler.XggAuthenticationFailureHandler;

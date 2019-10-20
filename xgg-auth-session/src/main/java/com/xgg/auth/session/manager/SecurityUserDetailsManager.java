@@ -1,4 +1,4 @@
-package com.xgg.auth.session;
+package com.xgg.auth.session.manager;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

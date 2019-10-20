@@ -1,4 +1,4 @@
-package com.xgg.auth.session;
+package com.xgg.auth.oauth2;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class XggAuthSessionApplicationTests {
+public class XggAuthOauth2ApplicationTests {
 
 	@Test
 	public void contextLoads() {

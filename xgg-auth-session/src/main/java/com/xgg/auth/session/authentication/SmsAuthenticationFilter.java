@@ -1,6 +1,5 @@
 package com.xgg.auth.session.authentication;
 
-import com.xgg.auth.session.SecurityConstants;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;

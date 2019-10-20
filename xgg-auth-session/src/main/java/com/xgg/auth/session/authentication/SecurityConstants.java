@@ -1,4 +1,4 @@
-package com.xgg.auth.session;
+package com.xgg.auth.session.authentication;
 
 /**
  * @Author renchengwei

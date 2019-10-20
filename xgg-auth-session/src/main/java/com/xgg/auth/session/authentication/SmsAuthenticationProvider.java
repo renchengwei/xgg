@@ -1,6 +1,6 @@
 package com.xgg.auth.session.authentication;
 
-import com.xgg.auth.session.SecurityUserDetailsManager;
+import com.xgg.auth.session.manager.SecurityUserDetailsManager;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationProvider;

@@ -1,6 +1,6 @@
 package com.xgg.auth.session.captcha;
 
-import com.xgg.auth.session.SecurityConstants;
+import com.xgg.auth.session.authentication.SecurityConstants;
 
 import java.util.HashMap;
 import java.util.Map;

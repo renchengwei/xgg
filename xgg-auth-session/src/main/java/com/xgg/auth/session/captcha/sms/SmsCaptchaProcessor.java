@@ -1,6 +1,6 @@
 package com.xgg.auth.session.captcha.sms;
 
-import com.xgg.auth.session.SecurityConstants;
+import com.xgg.auth.session.authentication.SecurityConstants;
 import com.xgg.auth.session.captcha.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

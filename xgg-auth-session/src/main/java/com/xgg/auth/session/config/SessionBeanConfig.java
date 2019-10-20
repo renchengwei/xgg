@@ -1,8 +1,8 @@
 package com.xgg.auth.session.config;
 
-import com.xgg.auth.session.DefaultSecurityUserDetailsManager;
-import com.xgg.auth.session.SecurityUserDetailsManager;
 import com.xgg.auth.session.handler.XggLogoutSuccessHandler;
+import com.xgg.auth.session.manager.DefaultSecurityUserDetailsManager;
+import com.xgg.auth.session.manager.SecurityUserDetailsManager;
 import com.xgg.auth.session.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

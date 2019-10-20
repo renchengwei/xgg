@@ -1,6 +1,6 @@
 package com.xgg.auth.session.properties;
 
-import com.xgg.auth.session.SecurityConstants;
+import com.xgg.auth.session.authentication.SecurityConstants;
 import com.xgg.auth.session.enums.LoginTypeEnum;
 
 /**
