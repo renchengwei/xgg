@@ -6,5 +6,10 @@ spring:
     host: 127.0.0.1
     database: 0
     password: 123456
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
+    username: mytest
+    password: 123456
 
 logging.level.org.springframework.security: DEBUG
