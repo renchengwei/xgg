@@ -1,4 +1,4 @@
-package com.xgg.auth.session.captcha;
+package com.xgg.auth.oauth2.captcha;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
