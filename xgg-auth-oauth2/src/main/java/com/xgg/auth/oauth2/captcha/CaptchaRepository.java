@@ -1,7 +1,5 @@
 package com.xgg.auth.oauth2.captcha;
 
-import org.springframework.web.context.request.ServletWebRequest;
-
 /**
  * @Author: renchengwei
  * @Date: 2019-08-11
@@ -10,24 +8,19 @@ import org.springframework.web.context.request.ServletWebRequest;
 public interface CaptchaRepository {
     /**
      * 保存验证码
-     * @param request
-     * @param code
+     * @param captcha
      * @param captchaType
      */
-    void save(ServletWebRequest request, CaptchaVO code, CaptchaTypeEnum captchaType);
+    void save(Captcha captcha, CaptchaTypeEnum captchaType);
 
     /**
      * 获取验证码
-     * @param request
-     * @param captchaType
      * @return
      */
-    CaptchaVO get(ServletWebRequest request, CaptchaTypeEnum captchaType);
+    Captcha get(String captchaToken,CaptchaTypeEnum captchaType);
 
     /**
      * 移除验证码
-     * @param request
-     * @param captchaType
      */
-    void remove(ServletWebRequest request, CaptchaTypeEnum captchaType);
+    void remove(String captchaToken,CaptchaTypeEnum captchaType);
 }

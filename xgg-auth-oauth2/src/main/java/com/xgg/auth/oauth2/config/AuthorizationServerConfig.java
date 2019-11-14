@@ -1,19 +1,36 @@
 package com.xgg.auth.oauth2.config;
 
+import com.xgg.auth.oauth2.authentication.CustomTokenServices;
+import com.xgg.auth.oauth2.authentication.SMSAuthenticationProvider;
+import com.xgg.auth.oauth2.authentication.SMSCodeTokenGranter;
+import com.xgg.auth.oauth2.captcha.CaptchaUnionFilter;
+import com.xgg.auth.oauth2.service.SecurityUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.CompositeTokenGranter;
+import org.springframework.security.oauth2.provider.TokenGranter;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Author: renchengwei
@@ -26,27 +43,89 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
-    RedisConnectionFactory redisConnectionFactory;
-    @Resource
-    private DataSource dataSource;
+    private SecurityUserDetailsService userDetailsService;
+   /* @Autowired
+    RedisConnectionFactory redisConnectionFactory;*/
+    /*@Resource
+    private DataSource dataSource;*/
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private CaptchaUnionFilter CaptchaUnionFilter;
+
+    private static final String DEMO_RESOURCE_ID = "order";
+    @Autowired
+    private ClientDetailsService clientDetailsService;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.jdbc(dataSource);
+//        String finalSecret = new BCryptPasswordEncoder().encode("");
+        /*clients.jdbc(dataSource);*/
+        clients.inMemory().withClient("demo")
+                .resourceIds(DEMO_RESOURCE_ID)
+                .authorizedGrantTypes("password","refresh_token","sms")
+                .scopes("all");
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints
+       /* endpoints
                 .tokenStore(new RedisTokenStore(redisConnectionFactory))
                 .authenticationManager(authenticationManager)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
-                .reuseRefreshTokens(true);
+                .reuseRefreshTokens(true);*/
+
+
+        endpoints.tokenStore(tokenStore())
+                .authenticationManager(authenticationManager)
+                .tokenGranter(tokenGranter(endpoints));
+        endpoints.tokenServices(customTokenServices());
+    }
+
+    private TokenGranter tokenGranter(final AuthorizationServerEndpointsConfigurer endpoints) {
+        List<TokenGranter> tokenGranters = new ArrayList<>();
+        SMSCodeTokenGranter smsCodeTokenGranter = new SMSCodeTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(), endpoints.getOAuth2RequestFactory());
+        tokenGranters.add(smsCodeTokenGranter);
+        tokenGranters.add(endpoints.getTokenGranter());
+        if (authenticationManager instanceof ProviderManager) {
+            SMSAuthenticationProvider smsAuthenticationProvider = new SMSAuthenticationProvider();
+            smsAuthenticationProvider.setUserDetailsService(userDetailsService);
+            ((ProviderManager) authenticationManager).getProviders().add(smsAuthenticationProvider);
+        }
+        endpoints.getClientDetailsService();
+        return new CompositeTokenGranter(tokenGranters);
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-
+    public void configure(AuthorizationServerSecurityConfigurer  oauthServer) throws Exception {
+        oauthServer.passwordEncoder(passwordEncoder)
+                .addTokenEndpointAuthenticationFilter(CaptchaUnionFilter);
     }
 
+    @Bean
+    public TokenStore tokenStore() {
+        return new InMemoryTokenStore();
+    }
+
+    @Bean
+    @Primary
+    public CustomTokenServices customTokenServices() {
+        CustomTokenServices tokenServices = new CustomTokenServices();
+        tokenServices.setClientDetailsService(clientDetailsService);
+        tokenServices.setTokenStore(tokenStore());
+        tokenServices.setSupportRefreshToken(true);
+        tokenServices.setReuseRefreshToken(true);
+        addUserDetailsService(tokenServices,userDetailsService);
+        return tokenServices;
+    }
+
+    private void addUserDetailsService(CustomTokenServices tokenServices, UserDetailsService userDetailsService) {
+        if (userDetailsService != null) {
+            PreAuthenticatedAuthenticationProvider provider = new PreAuthenticatedAuthenticationProvider();
+            provider.setPreAuthenticatedUserDetailsService(new UserDetailsByNameServiceWrapper<PreAuthenticatedAuthenticationToken>(
+                    userDetailsService));
+            tokenServices
+                    .setAuthenticationManager(new ProviderManager(Arrays.<AuthenticationProvider> asList(provider)));
+        }
+    }
 }

@@ -1,44 +1,29 @@
 package com.xgg.auth.oauth2.captcha;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: TODO
- */
 @Data
 public class CaptchaVO implements Serializable {
 
-    private static final long serialVersionUID = 4667369198044868126L;
+
+    public CaptchaVO(){}
+
+    public CaptchaVO(String captchaToken, LocalDateTime expireTime) {
+        this.captchaToken = captchaToken;
+        this.expireTime = expireTime;
+    }
+
     /**
-     * 验证码
+     * 图形验证码token
      */
-    private String code;
+    private String captchaToken;
     /**
      * 失效时间 这个通常放在缓存中或维护在数据库中
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime expireTime;
-
-    public CaptchaVO(String code, int expireAfterSeconds) {
-        this.code = code;
-        //多少秒后
-        this.expireTime = LocalDateTime.now().plusSeconds(expireAfterSeconds);
-    }
-
-    public CaptchaVO(String code, LocalDateTime expireTime) {
-        this.code = code;
-        this.expireTime = expireTime;
-    }
-    /**
-     * 是否失效
-     *
-     * @return
-     */
-    public boolean isExpried() {
-        return LocalDateTime.now().isAfter(expireTime);
-    }
 }

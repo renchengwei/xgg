@@ -1,6 +1,6 @@
 package com.xgg.auth.oauth2.captcha.sms;
 
-import com.xgg.auth.oauth2.captcha.CaptchaVO;
+import com.xgg.auth.oauth2.captcha.Captcha;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
  * @Description: TODO
  */
 @Data
-public class SmsCaptchaVO extends CaptchaVO {
+public class SmsCaptcha extends Captcha {
 
     private String mobile;
 
-    public SmsCaptchaVO(String code, int expireAfterSeconds) {
+    public SmsCaptcha(String code, int expireAfterSeconds) {
         super(code, expireAfterSeconds);
     }
 
-    public SmsCaptchaVO(String code, LocalDateTime expireAfterSeconds, String mobile) {
+    public SmsCaptcha(String code, LocalDateTime expireAfterSeconds, String mobile) {
         super(code, expireAfterSeconds);
         this.mobile = mobile;
     }

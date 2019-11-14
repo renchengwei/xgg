@@ -17,9 +17,9 @@ public class ImageCaptchaGenerate implements CaptchaGenerate {
     private Producer producer;
 
     @Override
-    public ImageCaptchaVO generate() {
+    public ImageCaptcha generate() {
         String code = producer.createText();
         BufferedImage bufferedImage = producer.createImage(code);
-        return new ImageCaptchaVO(bufferedImage, code, 60 * 5);
+        return new ImageCaptcha(bufferedImage, code, 60 * 5);
     }
 }

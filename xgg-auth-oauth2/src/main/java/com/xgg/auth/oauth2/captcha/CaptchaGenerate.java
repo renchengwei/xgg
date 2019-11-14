@@ -11,5 +11,5 @@ public interface CaptchaGenerate {
      *
      * @return
      */
-    CaptchaVO generate();
+    Captcha generate();
 }

@@ -1,5 +1,7 @@
 package com.xgg.auth.oauth2.captcha;
 
+import com.xgg.auth.oauth2.authentication.SecurityConstants;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,13 +15,13 @@ public enum CaptchaTypeEnum {
     SMS("sms","短信验证码") {
         @Override
         public String getParamNameOnValidate() {
-            return "smsCode";
+            return SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_SMS;
         }
     },
     IMAGE("image","图形验证码") {
         @Override
         public String getParamNameOnValidate() {
-            return "imageCode";
+            return SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_IMAGE;
         }
     };
 

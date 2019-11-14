@@ -1,6 +1,6 @@
 package com.xgg.auth.oauth2.captcha.image;
 
-import com.xgg.auth.oauth2.captcha.CaptchaVO;
+import com.xgg.auth.oauth2.captcha.Captcha;
 import lombok.Data;
 
 import java.awt.image.BufferedImage;
@@ -12,16 +12,14 @@ import java.time.LocalDateTime;
  * @Description: TODO
  */
 @Data
-public class ImageCaptchaVO extends CaptchaVO {
-
+public class ImageCaptcha extends Captcha {
     private BufferedImage image;
-
-    public ImageCaptchaVO(BufferedImage image, String code, int expireAfterSeconds){
+    private String imageToken;
+    public ImageCaptcha(BufferedImage image, String code, int expireAfterSeconds){
         super(code,expireAfterSeconds);
         this.image = image;
     }
-
-    public ImageCaptchaVO(BufferedImage image, String code, LocalDateTime expireTime){
+    public ImageCaptcha(BufferedImage image, String code, LocalDateTime expireTime){
         super(code,expireTime);
         this.image = image;
     }

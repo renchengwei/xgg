@@ -18,6 +18,7 @@
 	<modules>
 		<module>xgg-auth-demo</module>
 		<module>xgg-auth-session</module>
+		<module>xgg-auth-oauth2</module>
 	</modules>
 
 	<properties>
@@ -82,4 +83,12 @@
 		</repository>
 	</repositories>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

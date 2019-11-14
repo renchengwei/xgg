@@ -13,7 +13,7 @@ import java.io.IOException;
  * @Date 2019/8/5
  * @Description TODO
  */
-public abstract class AbstractCaptchaProcessor<C extends CaptchaVO> implements CaptchaProcessor {
+public abstract class AbstractCaptchaProcessor<C extends Captcha> implements CaptchaProcessor {
 
     @Resource
     protected CaptchaRepository captchaRepository;
@@ -24,18 +24,17 @@ public abstract class AbstractCaptchaProcessor<C extends CaptchaVO> implements C
      * @throws Exception
      */
     @Override
-    public void create(ServletWebRequest request) throws Exception {
+    public Captcha create(ServletWebRequest request) throws IOException {
         //生成
         C captcha = generateCaptcha(request);
         //保存
-        save(request,captcha);
+        save(captcha,request);
         //发送
         send(request,captcha);
+        return captcha;
     }
 
     protected abstract C generateCaptcha(ServletWebRequest request);
-
-    protected abstract void send(ServletWebRequest request, C captcha) throws IOException;
 
     @Override
     public boolean support(CaptchaTypeEnum captchaTypeEnum) {
@@ -44,7 +43,10 @@ public abstract class AbstractCaptchaProcessor<C extends CaptchaVO> implements C
 
     @Override
     public void validate(ServletWebRequest request, CaptchaTypeEnum captchaType) throws CaptchaException {
-        CaptchaVO captchaVO = captchaRepository.get(request,captchaType);
+
+        String captchaToken = getCaptchaTokenForServletReques(request);
+
+        Captcha captcha = captchaRepository.get(captchaToken,captchaType);
         String captchaInRequest;
         try {
             captchaInRequest = ServletRequestUtils.getStringParameter(request.getRequest(),
@@ -57,25 +59,32 @@ public abstract class AbstractCaptchaProcessor<C extends CaptchaVO> implements C
             throw new CaptchaException(captchaType + "验证码的值不能为空");
         }
 
-        if (captchaVO == null) {
+        if (captcha == null) {
             throw new CaptchaException(captchaType + "验证码不存在");
         }
 
-        if (captchaVO.isExpried()) {
-            captchaRepository.remove(request,captchaType);
+        if (captcha.isExpried()) {
+            captchaRepository.remove(captchaToken,captchaType);
             throw new CaptchaException(captchaType + "验证码已过期");
         }
 
-        if (!StringUtils.equals(captchaVO.getCode(), captchaInRequest)) {
+        if (!StringUtils.equals(captcha.getCode(), captchaInRequest)) {
             throw new CaptchaException(captchaType + "验证码不匹配");
         }
 
-        check(request, captchaVO);
+        check(request, captcha);
 
         //验证成功清除缓存中的key
-        captchaRepository.remove(request,captchaType);
+        captchaRepository.remove(captchaToken,captchaType);
     }
 
-    protected abstract void save(ServletWebRequest request, C captcha);
-    protected abstract void check(ServletWebRequest request, CaptchaVO captcha);
+    protected abstract String getCaptchaTokenForServletReques(ServletWebRequest request);
+    protected abstract void save(C captcha,ServletWebRequest request);
+    protected abstract void check(ServletWebRequest request, Captcha captcha);
+    protected abstract void send(ServletWebRequest request, C captcha) throws IOException;
+
+    @Override
+    public Captcha getCaptcha(String captchaToken, CaptchaTypeEnum captchaTypeEnum) {
+        return captchaRepository.get(captchaToken,captchaTypeEnum);
+    }
 }

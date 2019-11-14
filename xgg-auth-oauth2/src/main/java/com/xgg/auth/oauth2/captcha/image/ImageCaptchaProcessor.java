@@ -1,17 +1,19 @@
 package com.xgg.auth.oauth2.captcha.image;
 
-import com.xgg.auth.oauth2.captcha.AbstractCaptchaProcessor;
-import com.xgg.auth.oauth2.captcha.CaptchaGenerate;
-import com.xgg.auth.oauth2.captcha.CaptchaTypeEnum;
-import com.xgg.auth.oauth2.captcha.CaptchaVO;
+import com.alibaba.fastjson.JSON;
+import com.xgg.auth.oauth2.captcha.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * @Author renchengwei
@@ -20,35 +22,50 @@ import java.io.IOException;
  */
 @Slf4j
 @Component
-public class ImageCaptchaProcessor extends AbstractCaptchaProcessor<ImageCaptchaVO> {
-    private static final String FORMAT_NAME = "JPEG";
+public class ImageCaptchaProcessor extends AbstractCaptchaProcessor<ImageCaptcha> {
 
     @Autowired
     private CaptchaGenerate imageCaptchaGenerate;
 
     @Override
-    protected ImageCaptchaVO generateCaptcha(ServletWebRequest request) {
-        return (ImageCaptchaVO) imageCaptchaGenerate.generate();
+    protected ImageCaptcha generateCaptcha(ServletWebRequest request) {
+        return (ImageCaptcha) imageCaptchaGenerate.generate();
     }
 
     @Override
-    protected void send(ServletWebRequest request, ImageCaptchaVO captcha) throws IOException {
-        HttpServletResponse response=request.getResponse();
-        // 没有缓存
-        response.setHeader("Cache-Control", "no-store, no-cache");
-        response.setContentType("image/jpeg");
-        ImageIO.write(captcha.getImage(), FORMAT_NAME, response.getOutputStream());
+    protected String getCaptchaTokenForServletReques(ServletWebRequest request) {
+        String token;
+        try {
+            token = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), "imageToken");
+        } catch (ServletRequestBindingException e) {
+            throw new CaptchaException("获取imageToken失败");
+        }
 
+        token = token.trim();
+
+        if(StringUtils.isBlank(token)) {
+            throw new CaptchaException("imageToken不能为空");
+        }
+        return token;
     }
 
     @Override
-    protected void save(ServletWebRequest request, ImageCaptchaVO captcha) {
-        CaptchaVO captchaVo = new CaptchaVO(captcha.getCode(),captcha.getExpireTime());
-        captchaRepository.save(request,captchaVo,getCondition());
+    protected void send(ServletWebRequest request, ImageCaptcha captcha) throws IOException {
+        CaptchaVO captchaVO = new CaptchaVO(captcha.getCaptchaToken(),captcha.getExpireTime());
+        HttpServletResponse response = request.getResponse();
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(JSON.toJSONString(captchaVO));
     }
 
     @Override
-    protected void check(ServletWebRequest request, CaptchaVO captcha) {
+    protected void save(ImageCaptcha captcha,ServletWebRequest request) {
+        captcha.setCaptchaToken(UUID.randomUUID().toString());
+        captchaRepository.save(captcha,getCondition());
+    }
+
+    @Override
+    protected void check(ServletWebRequest request, Captcha captcha) {
 
     }
 

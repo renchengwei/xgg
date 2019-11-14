@@ -3,22 +3,24 @@ package com.xgg.auth.oauth2.captcha;
 import com.xgg.auth.oauth2.support.strategy.IStrategy;
 import org.springframework.web.context.request.ServletWebRequest;
 
+import java.io.IOException;
+
 /**
  * @Author renchengwei
  * @Date 2019/8/5
  * @Description TODO
  */
 public interface CaptchaProcessor extends IStrategy<CaptchaTypeEnum> {
-    /**
-     * 验证码
-     */
-    String CAPTCHA_SESSION_KEY = "captcha_session_key_";
+
     /**
      * 创建验证码
      * @param request 封装请求和响应
      * @throws Exception
+     * @return Captcha 验证码
      */
-    void create(ServletWebRequest request) throws  Exception;
+    Captcha create(ServletWebRequest request) throws IOException;
+
+    Captcha getCaptcha(String captchaToken,CaptchaTypeEnum captchaTypeEnum);
     /**
      * 校验验证码
      * @param servletWebRequest
@@ -35,4 +37,6 @@ public interface CaptchaProcessor extends IStrategy<CaptchaTypeEnum> {
     *
     */
     boolean support(CaptchaTypeEnum captchaTypeEnum);
+
+
 }
