@@ -25,5 +25,4 @@ public class ImageCaptchaVO extends CaptchaVO {
         super(code,expireTime);
         this.image = image;
     }
-
 }
