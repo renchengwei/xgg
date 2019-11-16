@@ -80,21 +80,14 @@ public class CustomTokenServices implements AuthorizationServerTokenServices, Re
         OAuth2AccessToken existingAccessToken = tokenStore.getAccessToken(authentication);
         OAuth2RefreshToken refreshToken = null;
         if (existingAccessToken != null) {
-            if (existingAccessToken.isExpired()) {
-                if (existingAccessToken.getRefreshToken() != null) {
-                    refreshToken = existingAccessToken.getRefreshToken();
-                    // The token store could remove the refresh token when the
-                    // access token is removed, but we want to
-                    // be sure...
-                    tokenStore.removeRefreshToken(refreshToken);
-                }
-                tokenStore.removeAccessToken(existingAccessToken);
+            if (existingAccessToken.getRefreshToken() != null) {
+                refreshToken = existingAccessToken.getRefreshToken();
+                // The token store could remove the refresh token when the
+                // access token is removed, but we want to
+                // be sure...
+                tokenStore.removeRefreshToken(refreshToken);
             }
-            else {
-                // Re-store the access token in case the authentication has changed
-                tokenStore.storeAccessToken(existingAccessToken, authentication);
-                return existingAccessToken;
-            }
+            tokenStore.removeAccessToken(existingAccessToken);
         }
 
         // Only create a new refresh token if there wasn't an existing one
