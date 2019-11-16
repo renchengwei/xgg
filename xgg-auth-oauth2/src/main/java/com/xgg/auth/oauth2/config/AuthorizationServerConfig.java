@@ -61,10 +61,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 //        String finalSecret = new BCryptPasswordEncoder().encode("");
         /*clients.jdbc(dataSource);*/
-        clients.inMemory().withClient("demo")
+        clients.inMemory().withClient("demo").secret("123456")
                 .resourceIds(DEMO_RESOURCE_ID)
-                .authorizedGrantTypes("password","refresh_token","sms")
-                .scopes("all");
+                .authorizedGrantTypes("password","refresh_token","sms","authorization_code","implicit")
+                .scopes("all")
+                .redirectUris("http://localhost:9001/callback");
     }
 
     @Override
@@ -74,8 +75,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authenticationManager(authenticationManager)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
                 .reuseRefreshTokens(true);*/
-
-
         endpoints.tokenStore(tokenStore())
                 .authenticationManager(authenticationManager)
                 .tokenGranter(tokenGranter(endpoints));
@@ -98,7 +97,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer  oauthServer) throws Exception {
-        oauthServer.passwordEncoder(passwordEncoder)
+        oauthServer.tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()")
+                .passwordEncoder(passwordEncoder)
                 .addTokenEndpointAuthenticationFilter(CaptchaUnionFilter);
     }
 

@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/api/product/{id}")
     public String getProduct(@PathVariable String id) {
         //for debug
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return "product id : " + id;
     }
 
-    @GetMapping("/order/{id}")
+    @GetMapping("/api/order/{id}")
     public String getOrder(@PathVariable String id) {
         //for debug
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

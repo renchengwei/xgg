@@ -30,11 +30,14 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http
+        http.anonymous().disable()
+                .requestMatchers().antMatchers("/api/**","/captcha/**")
+                .and()
                 .authorizeRequests()
-                .antMatchers("/captcha/**").permitAll()
-                .antMatchers("/order/**").hasAnyRole("USER")
-                .antMatchers("/api/**").authenticated();
+                .antMatchers("/api/**").authenticated()
+                .anyRequest().permitAll()
+                .and()
+                .anonymous().disable();
         //配置order访问控制，必须认证过后才可以访问
     }
 }
