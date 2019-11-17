@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: 自定义登陆失败处理器
+ * @author renchengwei
+ * @date 2019-08-03
+ * : 自定义登陆失败处理器
  */
 @Component("xggAuthenticationFailureHandler")
 @Slf4j

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-03
+ * : TODO
  */
 @Component("smsCaptchaGenerate")
 public class SmsCaptchaGenerate implements CaptchaGenerate {

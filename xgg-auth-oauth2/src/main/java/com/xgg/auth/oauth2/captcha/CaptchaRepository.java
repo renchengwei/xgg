@@ -1,9 +1,10 @@
 package com.xgg.auth.oauth2.captcha;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-11
- * @Description: TODO
+ * 验证码仓库接口
+ * @author renchengwei
+ * @date 2019-08-11
+ * : TODO
  */
 public interface CaptchaRepository {
     /**

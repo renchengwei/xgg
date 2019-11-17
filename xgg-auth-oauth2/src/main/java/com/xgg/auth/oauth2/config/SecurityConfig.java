@@ -14,9 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-10-05
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-10-05
+ * : TODO
  */
 @Configuration
 @EnableWebSecurity
@@ -27,11 +27,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+//        super.configure(http);
         http.authorizeRequests()
-                .antMatchers("/api/**").permitAll()
+                .antMatchers("/api/**","/captcha/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .userDetailsService(userDetailsService)
                 .formLogin()
                 .and()
                 .csrf().disable();
@@ -51,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-        auth.parentAuthenticationManager(authenticationManagerBean());
+//        auth.parentAuthenticationManager(authenticationManagerBean());
     }
 
     @Override

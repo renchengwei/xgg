@@ -3,9 +3,9 @@ package com.xgg.auth.session.service;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-10
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-10
+ * : TODO
  */
 @Component
 public class SessionService {

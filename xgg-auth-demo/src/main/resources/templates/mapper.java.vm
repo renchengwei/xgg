@@ -4,9 +4,9 @@ import ${package.Entity}.${entity};
 import ${superMapperClassPackage};
 import org.springframework.stereotype.Repository;
 /**
- * @Author ${author}
- * @Date ${date}
- * @Description
+ * @author ${author}
+ * @date ${date}
+ *
  */
 #if(${kotlin})
 interface ${table.mapperName} : ${superMapperClass}<${entity}>

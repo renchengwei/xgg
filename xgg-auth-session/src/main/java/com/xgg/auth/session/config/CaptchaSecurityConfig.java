@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import javax.servlet.Filter;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-11
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-11
+ * : TODO
  */
 @Component("captchaSecurityConfig")
 public class CaptchaSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {

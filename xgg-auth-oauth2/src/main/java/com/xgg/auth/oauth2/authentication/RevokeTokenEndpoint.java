@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-
+/**
+ *  @author renchengwei
+ *  @date 2019-11-16
+ *  : token注销服务，通过此服务可以删除已经生效的token信息
+ */
 @FrameworkEndpoint
 public class RevokeTokenEndpoint {
 

@@ -3,9 +3,9 @@ package com.xgg.auth.session.captcha;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-11
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-11
+ * : TODO
  */
 public interface CaptchaRepository {
     /**

@@ -1,9 +1,9 @@
 package com.xgg.auth.session.authentication;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/6
- * @Description TODO
+ * @author renchengwei
+ * @date 2019/8/6
+ *  TODO
  */
 public class SecurityConstants {
     /**

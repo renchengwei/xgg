@@ -7,9 +7,10 @@ import org.apache.commons.lang3.RandomStringUtils;
 import javax.annotation.Resource;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: TODO
+ * 短信验证码生成器
+ * @author renchengwei
+ * @date 2019-08-03
+ * : TODO
  */
 public class SmsCaptchaGenerate implements CaptchaGenerate {
 

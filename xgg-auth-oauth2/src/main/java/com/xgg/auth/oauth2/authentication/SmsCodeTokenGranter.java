@@ -13,20 +13,25 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-public class SMSCodeTokenGranter extends AbstractTokenGranter {
+/**
+ *  @author renchengwei
+ *  @date 2019-11-16
+ *  : 短信授权登陆授权者，继承AbstractTokenGranter，内部依赖AuthenticationManager，一般是ProviderManager的实现，
+ *  最终会通过调用SMSAuthenticationProvider完成用户信息校验
+ */
+public class SmsCodeTokenGranter extends AbstractTokenGranter {
 
     private static final String GRANT_TYPE = "sms";
     private final AuthenticationManager authenticationManager;
 
-    protected SMSCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType, AuthenticationManager authenticationManager1) {
+    protected SmsCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {
         super(tokenServices, clientDetailsService, requestFactory, grantType);
-        this.authenticationManager = authenticationManager1;
+        this.authenticationManager = authenticationManager;
     }
 
-    public SMSCodeTokenGranter(AuthenticationManager authenticationManager,
+    public SmsCodeTokenGranter(AuthenticationManager authenticationManager,
                                AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
-        this(authenticationManager, tokenServices, clientDetailsService, requestFactory, GRANT_TYPE, authenticationManager);
+        this(authenticationManager, tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
     }
 
     @Override
@@ -34,14 +39,23 @@ public class SMSCodeTokenGranter extends AbstractTokenGranter {
 
         Map<String, String> parameters = new LinkedHashMap<String, String>(tokenRequest.getRequestParameters());
         String mobile = parameters.get(SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE);
+        String smsCode = parameters.get(SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_SMS);
+        parameters.remove(SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_SMS);
         if (mobile == null) {
             mobile = "";
         }
         mobile = mobile.trim();
+
+        if (smsCode == null) {
+            smsCode = "";
+        }
+        smsCode = smsCode.trim();
+
+
         // Protect from downstream leaks of password
         parameters.remove(CaptchaTypeEnum.SMS.getParamNameOnValidate());
 
-        Authentication userAuth = new SMSAuthenticationToken(mobile);
+        Authentication userAuth = new SmsAuthenticationToken(mobile,smsCode);
         ((AbstractAuthenticationToken) userAuth).setDetails(parameters);
         try {
             userAuth = authenticationManager.authenticate(userAuth);

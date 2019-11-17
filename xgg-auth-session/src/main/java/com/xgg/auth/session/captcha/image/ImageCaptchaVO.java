@@ -7,9 +7,9 @@ import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-07-31
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-07-31
+ * : TODO
  */
 @Data
 public class ImageCaptchaVO extends CaptchaVO {

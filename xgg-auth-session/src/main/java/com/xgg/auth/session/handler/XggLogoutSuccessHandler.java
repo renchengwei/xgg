@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-11
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-11
+ * : TODO
  */
 @Slf4j
 public class XggLogoutSuccessHandler implements LogoutSuccessHandler {

@@ -22,9 +22,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/6
- * @Description TODO
+ * 统一的验证码拦截器
+ * @author renchengwei
+ * @date 2019/8/6
  */
 @Component
 @Slf4j

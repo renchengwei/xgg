@@ -1,9 +1,10 @@
 package com.xgg.auth.oauth2.captcha.sms;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: TODO
+ * 短信验证码发送者
+ * @author renchengwei
+ * @date 2019-08-03
+ * : TODO
  */
 public interface SmsCaptchaSend {
     /**

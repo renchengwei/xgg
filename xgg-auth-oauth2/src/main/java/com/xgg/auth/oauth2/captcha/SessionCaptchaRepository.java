@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-11
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-11
+ * : TODO
  */
 @Component
 public class SessionCaptchaRepository<C extends Captcha> implements CaptchaRepository {

@@ -1,9 +1,9 @@
 package com.xgg.auth.session.properties;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-03
+ * : TODO
  */
 public class ImageCaptchaProperties {
     /**

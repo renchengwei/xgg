@@ -16,9 +16,9 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/5
- * @Description TODO
+ * @author renchengwei
+ * @date 2019/8/5
+ *  图片验证码处理器
  */
 @Slf4j
 @Component
@@ -33,7 +33,7 @@ public class ImageCaptchaProcessor extends AbstractCaptchaProcessor<ImageCaptcha
     }
 
     @Override
-    protected String getCaptchaTokenForServletReques(ServletWebRequest request) {
+    protected String getCaptchaTokenForServletRequest(ServletWebRequest request) {
         String token;
         try {
             token = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), "imageToken");

@@ -35,23 +35,24 @@ import java.util.UUID;
 ;
 
 /**
- * Base implementation for token services using random UUID values for the access token and refresh token values. The
- * main extension point for customizations is the {@link TokenEnhancer} which will be called after the access and
- * refresh tokens have been generated but before they are stored.
- * <p>
- * Persistence is delegated to a {@code TokenStore} implementation and customization of the access token to a
- * {@link TokenEnhancer}.
- *
- * @author Ryan Heaton
- * @author Luke Taylor
- * @author Dave Syer
+ *  @author renchengwei
+ *  @date 2019-11-17
+ *  : 定制化token生成服务，原有的token生成策略如果用户重复获取token，会先检测tokenStore中是否已经存在，如果存在则直接返回，
+ *  修改之后的策略为，只要用户获取token，则检测tokenStore中是否存在，如果存在则先删除，然后生成新的token返回，效果相当于同一个用户只能同时
+ *  在一个地方在线，就是重复登陆踢号的功能
  */
 public class CustomTokenServices implements AuthorizationServerTokenServices, ResourceServerTokenServices,
         ConsumerTokenServices, InitializingBean {
 
-    private int refreshTokenValiditySeconds = 60 * 60 * 24 * 30; // default 30 days.
+    /**
+     * default 30 days.
+     */
+    private int refreshTokenValiditySeconds = 60 * 60 * 24 * 30;
 
-    private int accessTokenValiditySeconds = 60 * 60 * 12; // default 12 hours.
+    /**
+     * default 12 hours.
+     */
+    private int accessTokenValiditySeconds = 60 * 60 * 12;
 
     private boolean supportRefreshToken = false;
 
@@ -79,6 +80,7 @@ public class CustomTokenServices implements AuthorizationServerTokenServices, Re
 
         OAuth2AccessToken existingAccessToken = tokenStore.getAccessToken(authentication);
         OAuth2RefreshToken refreshToken = null;
+        //如果已经存在token则删除accessToken和refreshToken
         if (existingAccessToken != null) {
             if (existingAccessToken.getRefreshToken() != null) {
                 refreshToken = existingAccessToken.getRefreshToken();

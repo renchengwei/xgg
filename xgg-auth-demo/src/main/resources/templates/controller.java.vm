@@ -13,9 +13,9 @@ import ${superControllerClassPackage};
 #end
 
 /**
- * @Author ${author}
- * @Date ${date}
- * @Description
+ * @author ${author}
+ * @date ${date}
+ *
  */
 #if(${restControllerStyle})
 @RestController

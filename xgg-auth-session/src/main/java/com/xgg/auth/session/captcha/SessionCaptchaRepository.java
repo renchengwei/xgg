@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-11
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-11
+ * : TODO
  */
 @Component
 public class SessionCaptchaRepository<C extends CaptchaVO> implements CaptchaRepository {

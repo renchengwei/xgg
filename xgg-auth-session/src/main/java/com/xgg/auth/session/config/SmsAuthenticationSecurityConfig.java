@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/6
- * @Description TODO
+ * @author renchengwei
+ * @date 2019/8/6
+ *  TODO
  */
 @Component
 public class SmsAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {

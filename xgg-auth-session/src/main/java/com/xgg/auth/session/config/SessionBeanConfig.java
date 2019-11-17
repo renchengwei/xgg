@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-11
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-11
+ * : TODO
  */
 @Configuration
 public class SessionBeanConfig {

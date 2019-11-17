@@ -4,9 +4,9 @@ import com.xgg.auth.session.authentication.SecurityConstants;
 import com.xgg.auth.session.enums.LoginTypeEnum;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-03
+ * : TODO
  */
 public class SessionProperties {
 

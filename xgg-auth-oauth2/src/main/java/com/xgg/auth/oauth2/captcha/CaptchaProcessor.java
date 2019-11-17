@@ -6,9 +6,9 @@ import org.springframework.web.context.request.ServletWebRequest;
 import java.io.IOException;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/5
- * @Description TODO
+ * 验证码处理器接口
+ * @author renchengwei
+ * @date 2019/8/5
  */
 public interface CaptchaProcessor extends IStrategy<CaptchaTypeEnum> {
 
@@ -29,11 +29,11 @@ public interface CaptchaProcessor extends IStrategy<CaptchaTypeEnum> {
     void validate(ServletWebRequest servletWebRequest, CaptchaTypeEnum captchaTypeEnum) throws CaptchaException;
 
     /**
-    * @Description 是否支持
-    * @Author  renchengwei
-    * @Date   2019-08-11
+    *  是否支持
+    * @author  renchengwei
+    * @date   2019-08-11
     * @param  captchaTypeEnum 验证码类型
-    * @Return 是否支持
+    * @return 是否支持
     *
     */
     boolean support(CaptchaTypeEnum captchaTypeEnum);

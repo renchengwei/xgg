@@ -1,9 +1,9 @@
 package com.xgg.auth.oauth2.authentication;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/6
- * @Description TODO
+ * @author renchengwei
+ * @date 2019/8/6
+ *  维护安全模块的静态常量
  */
 public class SecurityConstants {
     /**

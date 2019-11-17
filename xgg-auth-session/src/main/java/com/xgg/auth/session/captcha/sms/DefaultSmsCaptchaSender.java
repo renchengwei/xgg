@@ -3,9 +3,9 @@ package com.xgg.auth.session.captcha.sms;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-04
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-04
+ * : TODO
  */
 @Slf4j
 public class DefaultSmsCaptchaSender implements SmsCaptchaSend {

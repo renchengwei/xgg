@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: 验证码生成配置类
+ * @author renchengwei
+ * @date 2019-08-03
+ * : 验证码生成配置类
  */
 @Configuration
 public class KaptchaGenerateConfig {

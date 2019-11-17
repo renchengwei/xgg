@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: 验证码Bean生成配置类
+ * @author renchengwei
+ * @date 2019-08-03
+ * : 验证码Bean生成配置类
  */
 @Configuration
 public class CaptchaBeanConfig {

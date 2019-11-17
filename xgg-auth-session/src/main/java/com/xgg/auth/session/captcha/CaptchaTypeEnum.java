@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/5
- * @Description TODO
+ * @author renchengwei
+ * @date 2019/8/5
+ *  TODO
  */
 public enum CaptchaTypeEnum {
 

@@ -1,9 +1,9 @@
 package com.xgg.auth.oauth2.support.strategy;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-11
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-11
+ * : TODO
  */
 public interface IStrategy<C> {
     /**

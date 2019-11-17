@@ -3,9 +3,9 @@ package com.xgg.auth.session.enums;
 import lombok.Getter;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-03
+ * : TODO
  */
 @Getter
 public enum LoginTypeEnum implements CharSequence {

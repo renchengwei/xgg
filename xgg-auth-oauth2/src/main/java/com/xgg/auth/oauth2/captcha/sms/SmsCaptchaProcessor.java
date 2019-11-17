@@ -15,9 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/5
- * @Description TODO
+ * 短信验证码处理器
+ * @author renchengwei
+ * @date 2019/8/5
+ *
  */
 @Slf4j
 @Component
@@ -33,7 +34,7 @@ public class SmsCaptchaProcessor extends AbstractCaptchaProcessor<SmsCaptcha> {
     }
 
     @Override
-    protected String getCaptchaTokenForServletReques(ServletWebRequest request) {
+    protected String getCaptchaTokenForServletRequest(ServletWebRequest request) {
         String token;
         try {
             token = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), "mobile");

@@ -1,9 +1,9 @@
 package com.xgg.auth.session.support;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-11
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-11
+ * : TODO
  */
 public class SimpleResponse {
 

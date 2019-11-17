@@ -1,8 +1,9 @@
 package com.xgg.auth.oauth2.config;
 
 import com.xgg.auth.oauth2.authentication.CustomTokenServices;
-import com.xgg.auth.oauth2.authentication.SMSAuthenticationProvider;
-import com.xgg.auth.oauth2.authentication.SMSCodeTokenGranter;
+import com.xgg.auth.oauth2.authentication.SmsAuthenticationProvider;
+import com.xgg.auth.oauth2.authentication.SmsCodeTokenGranter;
+import com.xgg.auth.oauth2.captcha.CaptchaProcessorHolder;
 import com.xgg.auth.oauth2.captcha.CaptchaUnionFilter;
 import com.xgg.auth.oauth2.service.SecurityUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-10-05
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-10-05
+ * : TODO
  */
 @Configuration
 @EnableAuthorizationServer
@@ -52,6 +53,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private PasswordEncoder passwordEncoder;
     @Autowired
     private CaptchaUnionFilter CaptchaUnionFilter;
+    @Autowired
+    private CaptchaProcessorHolder captchaProcessorHolder;
+
 
     private static final String DEMO_RESOURCE_ID = "order";
     @Autowired
@@ -61,7 +65,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 //        String finalSecret = new BCryptPasswordEncoder().encode("");
         /*clients.jdbc(dataSource);*/
-        clients.inMemory().withClient("demo").secret("123456")
+        clients.inMemory().withClient("demo")
                 .resourceIds(DEMO_RESOURCE_ID)
                 .authorizedGrantTypes("password","refresh_token","sms","authorization_code","implicit")
                 .scopes("all")
@@ -83,12 +87,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     private TokenGranter tokenGranter(final AuthorizationServerEndpointsConfigurer endpoints) {
         List<TokenGranter> tokenGranters = new ArrayList<>();
-        SMSCodeTokenGranter smsCodeTokenGranter = new SMSCodeTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(), endpoints.getOAuth2RequestFactory());
+        SmsCodeTokenGranter smsCodeTokenGranter = new SmsCodeTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(), endpoints.getOAuth2RequestFactory());
         tokenGranters.add(smsCodeTokenGranter);
         tokenGranters.add(endpoints.getTokenGranter());
         if (authenticationManager instanceof ProviderManager) {
-            SMSAuthenticationProvider smsAuthenticationProvider = new SMSAuthenticationProvider();
+            SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();
             smsAuthenticationProvider.setUserDetailsService(userDetailsService);
+            smsAuthenticationProvider.setCaptchaProcessorHolder(captchaProcessorHolder);
             ((ProviderManager) authenticationManager).getProviders().add(smsAuthenticationProvider);
         }
         endpoints.getClientDetailsService();

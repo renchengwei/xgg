@@ -9,9 +9,11 @@ import javax.annotation.Resource;
 import java.io.IOException;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/5
- * @Description TODO
+ * 验证码处理器，抽象类，实现了验证码通用功能和验证码生成、保存、发送、校验和获取的全流程内容，
+ * 具体个性化实现由子类完成
+ * @author renchengwei
+ * @date 2019/8/5
+ *
  */
 public abstract class AbstractCaptchaProcessor<C extends Captcha> implements CaptchaProcessor {
 
@@ -34,17 +36,44 @@ public abstract class AbstractCaptchaProcessor<C extends Captcha> implements Cap
         return captcha;
     }
 
+    /**
+     *  生成验证码对象
+     * @author  renchengwei
+     * @date   2019-11-17
+     * @param  request spring对http请求的组装类，内部包含了HttpServletRequest和HttpServletResponse
+     * @return 验证码对象
+     *
+     */
     protected abstract C generateCaptcha(ServletWebRequest request);
 
+    /**
+    *
+    * 判断当前处理器是否有能力处理 <code>captchaTypeEnum</code>类型的验证码
+    * @author  renchengwei
+    * @date   2019-11-17
+    * @param  captchaTypeEnum 验证码类型枚举
+    * @return <code>true</code> 能够处理当前类型的验证码
+    * @throws
+    *
+    */
     @Override
     public boolean support(CaptchaTypeEnum captchaTypeEnum) {
         return getCondition().equals(captchaTypeEnum);
     }
-
+    /**
+     *  校验验证码是否通过，通常是用户从前端传输验证码类型和验证码，判断是否和codeStore中是否一致
+     * @author  renchengwei
+     * @date   2019-11-17
+     * @param  request spring对http请求的组装类，内部包含了HttpServletRequest和HttpServletResponse
+     * @param  captchaType 验证码类型枚举
+     * @return <code>true</code> 校验验证码通过
+     * @throws
+     *
+     */
     @Override
     public void validate(ServletWebRequest request, CaptchaTypeEnum captchaType) throws CaptchaException {
 
-        String captchaToken = getCaptchaTokenForServletReques(request);
+        String captchaToken = getCaptchaTokenForServletRequest(request);
 
         Captcha captcha = captchaRepository.get(captchaToken,captchaType);
         String captchaInRequest;
@@ -78,11 +107,55 @@ public abstract class AbstractCaptchaProcessor<C extends Captcha> implements Cap
         captchaRepository.remove(captchaToken,captchaType);
     }
 
-    protected abstract String getCaptchaTokenForServletReques(ServletWebRequest request);
+    /**
+     * 从当前 <code>request</code>中获取验证码值，不同类型的验证码获取方式可能不同，具体有子类实现
+     * @author  renchengwei
+     * @date   2019-11-17
+     * @param  request spring对http请求的组装类，内部包含了HttpServletRequest和HttpServletResponse
+     * @return 验证码值
+     *
+     */
+    protected abstract String getCaptchaTokenForServletRequest(ServletWebRequest request);
+    /**
+     *  保存验证码，具体保存方式由子类实现
+     * @author  renchengwei
+     * @date   2019-11-17
+     * @param  captcha 验证码对象
+     * @param  request spring对http请求的组装类，内部包含了HttpServletRequest和HttpServletResponse
+     *
+     */
     protected abstract void save(C captcha,ServletWebRequest request);
+    /**
+     * 
+     * 校验验证码是否通过，子类个性化实现，validate方法会通过调用此方法完成子类的个性化校验，具体实现由子类完成
+     * @author renchengwei
+     * @date 2019-11-17
+     * @param request spring对http请求的组装类，内部包含了HttpServletRequest和HttpServletResponse
+     * @param captcha 验证码对象
+     * 
+     */
     protected abstract void check(ServletWebRequest request, Captcha captcha);
+    /**
+     * 
+     * 发送验证码实现，例如短信验证码的发送功能，图片验证码的图片二进制传输功能，具体实现由子类完成
+     * @author renchengwei
+     * @date 2019-11-17
+     * @param request spring对http请求的组装类，内部包含了HttpServletRequest和HttpServletResponse
+     * @param captcha 验证码对象
+     * @throws IOException 如果验证码由于IO原因发送失败
+     * 
+     */
     protected abstract void send(ServletWebRequest request, C captcha) throws IOException;
 
+    /**
+     *
+     * 根据验证码类型和token获取验证码对象
+     * @author renchengwei
+     * @date 2019-11-17
+     * @param captchaToken 验证码唯一标识
+     * @return Captcha 验证码对象
+     *
+     */
     @Override
     public Captcha getCaptcha(String captchaToken, CaptchaTypeEnum captchaTypeEnum) {
         return captchaRepository.get(captchaToken,captchaTypeEnum);

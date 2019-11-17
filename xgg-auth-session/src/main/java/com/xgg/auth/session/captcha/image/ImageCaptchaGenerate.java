@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.awt.image.BufferedImage;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: 图片验证码生成器
+ * @author renchengwei
+ * @date 2019-08-03
+ * : 图片验证码生成器
  */
 public class ImageCaptchaGenerate implements CaptchaGenerate {
 

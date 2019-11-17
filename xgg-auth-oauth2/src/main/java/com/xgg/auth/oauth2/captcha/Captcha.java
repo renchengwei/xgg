@@ -6,9 +6,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: TODO
+ * 验证码实体类，此类为验证码顶级类，包含了验证码的通用属性，个性化属性由子类实现
+ * @author renchengwei
+ * @date 2019-08-03
  */
 @Data
 public class Captcha implements Serializable {

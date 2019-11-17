@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-01
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-08-01
+ * : TODO
  */
 public class CodeGenerator {
 
@@ -39,9 +39,9 @@ public class CodeGenerator {
     }
 
     /**
-     * @Author renchengwei
-     * @Date 2019/8/2
-     * @Description 全局配置
+     * @author renchengwei
+     * @date 2019/8/2
+     *  全局配置
      */
     private static void globalConfig(AutoGenerator mpg) {
         // 全局配置

@@ -1,4 +1,4 @@
-package com.xgg.auth.oauth2;
+package com.xgg.auth.oauth2.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-10-06
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-10-06
+ * : TODO
  */
 @RestController
 public class HelloController {

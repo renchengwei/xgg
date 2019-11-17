@@ -6,9 +6,9 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/6
- * @Description TODO
+ * @author renchengwei
+ * @date 2019/8/6
+ *  TODO
  */
 public class SmsAuthenticationToken extends AbstractAuthenticationToken {
     private static final long serialVersionUID = 5085826859700928140L;

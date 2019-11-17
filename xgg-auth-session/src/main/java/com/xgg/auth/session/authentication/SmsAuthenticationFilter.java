@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/6
- * @Description TODO
+ * @author renchengwei
+ * @date 2019/8/6
+ *  TODO
  */
 public class SmsAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 

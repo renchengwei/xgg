@@ -16,9 +16,9 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
- *  @author: renchengwei
- *  @Date: 2019-08-03
- *  @Description: 浏览器安全配置
+ *  @author renchengwei
+ *  @date 2019-08-03
+ *  : 浏览器安全配置
  */
 @Configuration
 @EnableWebSecurity

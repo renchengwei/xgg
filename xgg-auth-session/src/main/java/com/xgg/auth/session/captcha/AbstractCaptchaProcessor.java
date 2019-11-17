@@ -11,9 +11,9 @@ import javax.annotation.Resource;
 import java.io.IOException;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/5
- * @Description TODO
+ * @author renchengwei
+ * @date 2019/8/5
+ *  TODO
  */
 public abstract class AbstractCaptchaProcessor<C extends CaptchaVO> implements CaptchaProcessor {
 

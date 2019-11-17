@@ -6,9 +6,9 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-18
- * @Description: TODO
+ * 短信验证码对象
+ * @author renchengwei
+ * @date 2019-08-18
  */
 @Data
 public class SmsCaptcha extends Captcha {

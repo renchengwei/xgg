@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: 验证码控制器
+ * @author renchengwei
+ * @date 2019-08-03
+ * : 验证码控制器
  */
 @RestController
 @Slf4j

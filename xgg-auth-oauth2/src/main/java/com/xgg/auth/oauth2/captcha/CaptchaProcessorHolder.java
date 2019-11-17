@@ -7,9 +7,9 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @Author renchengwei
- * @Date 2019/8/6
- * @Description TODO
+ * 验证码处理器持有者，通过此类可以获取验证码处理器，从而调用验证码功能的各个方法
+ * @author renchengwei
+ * @date 2019/8/6
  */
 @Component
 @Slf4j
@@ -24,7 +24,7 @@ public class CaptchaProcessorHolder {
      * @param name
      * @return
      */
-    CaptchaProcessor findCaptchaProcessor(String name) {
+    public CaptchaProcessor findCaptchaProcessor(String name) {
         CaptchaTypeEnum captchaTypeEnum = CaptchaTypeEnum.forCode(name);
         if (captchaTypeEnum == null) {
             log.error("验证码类型枚举" + name + "不存在");
@@ -39,7 +39,7 @@ public class CaptchaProcessorHolder {
      * @param captchaTypeEnum
      * @return
      */
-    CaptchaProcessor findCaptchaProcessor(CaptchaTypeEnum captchaTypeEnum) {
+    public CaptchaProcessor findCaptchaProcessor(CaptchaTypeEnum captchaTypeEnum) {
         if (captchaTypeEnum == null) {
             throw new CaptchaException("验证码类型枚举类不存在");
         }

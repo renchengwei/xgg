@@ -9,9 +9,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-10-19
- * @Description: TODO
+ * @author renchengwei
+ * @date 2019-10-19
+ * : TODO
  */
 @Configuration
 @EnableResourceServer
@@ -31,7 +31,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.anonymous().disable()
-                .requestMatchers().antMatchers("/api/**","/captcha/**")
+                .requestMatchers().antMatchers("/api/**")
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/**").authenticated()

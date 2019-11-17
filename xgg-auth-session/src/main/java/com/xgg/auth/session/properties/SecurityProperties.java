@@ -4,9 +4,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author: renchengwei
- * @Date: 2019-08-03
- * @Description: 自定配置核心配置
+ * @author renchengwei
+ * @date 2019-08-03
+ * : 自定配置核心配置
  */
 @Component
 @ConfigurationProperties(value = "xgg.auth",ignoreInvalidFields = true)

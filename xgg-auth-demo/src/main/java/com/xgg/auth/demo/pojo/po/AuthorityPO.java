@@ -9,9 +9,9 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * @Author renchengwei
- * @Date 2019-08-09
- * @Description
+ * @author renchengwei
+ * @date 2019-08-09
+ *
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
