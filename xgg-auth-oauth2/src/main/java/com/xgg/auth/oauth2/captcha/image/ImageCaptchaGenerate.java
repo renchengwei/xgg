@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 /**
  * @author renchengwei
  * @date 2019-08-03
- * : 图片验证码生成器
+ * 图片验证码生成器
  */
 public class ImageCaptchaGenerate implements CaptchaGenerate {
 

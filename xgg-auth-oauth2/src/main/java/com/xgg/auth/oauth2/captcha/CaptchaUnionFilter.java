@@ -39,7 +39,7 @@ public class CaptchaUnionFilter extends OncePerRequestFilter {
 
     private Map<String,CaptchaTypeEnum> grantTypeMap = new HashMap<>();
 
-    private static final String GRANT_TYPE_PARM_NAME = "grant_type";
+    private static final String GRANT_TYPE_PARAM_NAME = "grant_type";
 
     private static final String OAUTH_TOKEN_URL = "/oauth/token";
 
@@ -103,7 +103,7 @@ public class CaptchaUnionFilter extends OncePerRequestFilter {
      * @return
      */
     private CaptchaTypeEnum getCaptchaTypeWithGrantType(HttpServletRequest request) {
-        String grantType = request.getParameter(GRANT_TYPE_PARM_NAME);
+        String grantType = request.getParameter(GRANT_TYPE_PARAM_NAME);
         Set<String> grantSet = grantTypeMap.keySet();
         for (String grant : grantSet) {
             if (pathMatcher.match(grant, grantType)) {

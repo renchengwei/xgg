@@ -1,9 +1,9 @@
 package com.xgg.auth.oauth2.support.strategy;
 
 /**
+ * 策略接口
  * @author renchengwei
  * @date 2019-08-11
- * : TODO
  */
 public interface IStrategy<C> {
     /**

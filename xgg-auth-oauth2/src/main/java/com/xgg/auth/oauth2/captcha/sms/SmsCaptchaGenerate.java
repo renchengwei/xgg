@@ -10,7 +10,6 @@ import javax.annotation.Resource;
  * 短信验证码生成器
  * @author renchengwei
  * @date 2019-08-03
- * : TODO
  */
 public class SmsCaptchaGenerate implements CaptchaGenerate {
 

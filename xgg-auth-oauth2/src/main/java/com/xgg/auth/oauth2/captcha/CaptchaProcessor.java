@@ -25,6 +25,7 @@ public interface CaptchaProcessor extends IStrategy<CaptchaTypeEnum> {
      * 校验验证码
      * @param servletWebRequest
      * @param captchaTypeEnum
+     * @throws CaptchaException 校验失败时
      */
     void validate(ServletWebRequest servletWebRequest, CaptchaTypeEnum captchaTypeEnum) throws CaptchaException;
 

@@ -18,7 +18,7 @@ import java.util.UUID;
 /**
  * @author renchengwei
  * @date 2019/8/5
- *  图片验证码处理器
+ * 图片验证码处理器
  */
 @Slf4j
 @Component

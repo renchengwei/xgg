@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 /**
  * @author renchengwei
  * @date 2019-07-31
- * : 图片验证码
+ * 图片验证码
  */
 @Data
 public class ImageCaptcha extends Captcha {

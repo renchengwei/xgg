@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Data
 public class CaptchaVO implements Serializable {
 
-
     public CaptchaVO(){}
 
     public CaptchaVO(String captchaToken, LocalDateTime expireTime) {

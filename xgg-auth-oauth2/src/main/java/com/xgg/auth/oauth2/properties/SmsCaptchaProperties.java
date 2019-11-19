@@ -1,9 +1,9 @@
 package com.xgg.auth.oauth2.properties;
 
 /**
+ * 短信验证码配置文件
  * @author renchengwei
  * @date 2019-08-04
- * : TODO
  */
 public class SmsCaptchaProperties {
     /**

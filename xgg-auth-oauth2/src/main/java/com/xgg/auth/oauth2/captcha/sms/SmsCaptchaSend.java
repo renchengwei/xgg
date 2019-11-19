@@ -4,7 +4,6 @@ package com.xgg.auth.oauth2.captcha.sms;
  * 短信验证码发送者
  * @author renchengwei
  * @date 2019-08-03
- * : TODO
  */
 public interface SmsCaptchaSend {
     /**

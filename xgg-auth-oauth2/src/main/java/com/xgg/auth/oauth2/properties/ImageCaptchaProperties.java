@@ -1,9 +1,9 @@
 package com.xgg.auth.oauth2.properties;
 
 /**
+ * 图片验证码配置文件
  * @author renchengwei
  * @date 2019-08-03
- * : TODO
  */
 public class ImageCaptchaProperties {
     /**

@@ -11,8 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-public class DefaultSecurityUserDeatilsService implements SecurityUserDetailsService{
+/**
+ * 默认的用户操作服务
+ * @author renchengwei
+ * @date 2019-11-18
+ */
+public class DefaultSecurityUserDetailsService implements SecurityUserDetailsService{
 
     @Autowired
     private PasswordEncoder passwordEncoder;

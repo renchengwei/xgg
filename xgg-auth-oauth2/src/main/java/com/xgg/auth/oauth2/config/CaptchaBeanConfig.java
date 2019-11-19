@@ -4,6 +4,8 @@ import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import com.xgg.auth.oauth2.captcha.CaptchaGenerate;
+import com.xgg.auth.oauth2.captcha.CaptchaRepository;
+import com.xgg.auth.oauth2.captcha.InMemoryCaptchaRepository;
 import com.xgg.auth.oauth2.captcha.image.ImageCaptchaGenerate;
 import com.xgg.auth.oauth2.captcha.sms.DefaultSmsCaptchaSender;
 import com.xgg.auth.oauth2.captcha.sms.SmsCaptchaGenerate;
@@ -39,6 +41,13 @@ public class CaptchaBeanConfig {
     public CaptchaGenerate smsCaptchaGenerate() {
         SmsCaptchaGenerate smsCaptchaGenerate = new SmsCaptchaGenerate();
         return smsCaptchaGenerate;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(CaptchaRepository.class)
+    public CaptchaRepository inMemoryCaptchaRepository() {
+        InMemoryCaptchaRepository inMemoryCaptchaRepository = new InMemoryCaptchaRepository();
+        return inMemoryCaptchaRepository;
     }
 
     @Bean

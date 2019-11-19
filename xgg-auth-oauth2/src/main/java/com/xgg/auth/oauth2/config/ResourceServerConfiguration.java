@@ -9,9 +9,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
+ * 资源服务器
  * @author renchengwei
  * @date 2019-10-19
- * : TODO
  */
 @Configuration
 @EnableResourceServer
