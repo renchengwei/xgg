@@ -1,0 +1,21 @@
+package ${package.ServiceImpl};
+
+import ${superServiceImplClassPackage};
+import org.springframework.stereotype.Service;
+
+/**
+ *
+ * TODO 请描述类的具体实现功能和作用
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+#if(${kotlin})
+open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+
+}
+#else
+public class ${table.serviceImplName} implements ${table.serviceName} {
+
+}
+#end

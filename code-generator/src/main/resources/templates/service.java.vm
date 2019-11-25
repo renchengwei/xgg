@@ -1,0 +1,15 @@
+package ${package.Service};
+
+/**
+ *
+ * TODO 请描述接口的具体实现功能和作用
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface ${table.serviceName} : ${superServiceClass}<${entity}>
+#else
+public interface ${table.serviceName} {
+
+}
+#end
