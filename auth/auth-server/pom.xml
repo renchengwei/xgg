@@ -91,6 +91,28 @@
 			<artifactId>druid-spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.springcloud.dubbo</groupId>
+			<artifactId>spring-cloud-dubbo-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-cloud-dubbo-eureka</artifactId>
+					<groupId>cn.springcloud.dubbo</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+					<groupId>org.springframework.cloud</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>

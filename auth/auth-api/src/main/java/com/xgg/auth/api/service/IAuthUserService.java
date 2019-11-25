@@ -1,6 +1,8 @@
 package com.xgg.auth.api.service;
 
 import com.xgg.auth.api.request.AuthUserRequest;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
@@ -8,6 +10,7 @@ import com.xgg.auth.api.request.AuthUserRequest;
  * @author renchengwei
  * @since 2019-11-24
  */
+@FeignClient("authUserService")
 public interface IAuthUserService {
 
     /**
@@ -18,5 +21,6 @@ public interface IAuthUserService {
      * @param userRequest 会员保存请求信息
      *
      */
+    @RequestMapping("/saveUser")
     void saveUser(AuthUserRequest userRequest);
 }

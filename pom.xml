@@ -20,6 +20,8 @@
 		<module>xgg-auth-session</module>-->
 		<module>auth/auth-server</module>
 		<module>auth/auth-api</module>
+		<module>jsf/gsf-api</module>
+		<module>jsf/jsf-server</module>
 		<!--<module>code-generator</module>-->
     </modules>
 
@@ -30,12 +32,15 @@
 		<druid-spring-boot-starter.version>1.1.18</druid-spring-boot-starter.version>
 		<mybatis-plus.version>3.1.2</mybatis-plus.version>
 		<velocity-engine-core.version>2.1</velocity-engine-core.version>
-		<oauth2-autoconfigure-version>2.1.7.RELEASE</oauth2-autoconfigure-version>
-		<mybatis-version>2.1.0</mybatis-version>
-		<commons-lang3-version>3.9</commons-lang3-version>
-		<kaptcha-version>2.3.2</kaptcha-version>
-        <fastjson-version>1.2.59</fastjson-version>
-		<xgg-version>0.0.1-SNAPSHOT</xgg-version>
+		<oauth2-autoconfigure.version>2.1.7.RELEASE</oauth2-autoconfigure.version>
+		<mybatis.version>2.1.0</mybatis.version>
+		<commons-lang3.version>3.9</commons-lang3.version>
+		<kaptcha.version>2.3.2</kaptcha.version>
+        <fastjson.version>1.2.59</fastjson.version>
+		<xgg.version>0.0.1-SNAPSHOT</xgg.version>
+		<spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
+		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+		<spring-cloud-dubbo.version>1.0.0</spring-cloud-dubbo.version>
 	</properties>
 
 	<dependencyManagement>
@@ -43,7 +48,12 @@
 			<dependency>
 				<groupId>com.xgg</groupId>
 				<artifactId>auth-api</artifactId>
-				<version>${xgg-version}</version>
+				<version>${xgg.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.xgg</groupId>
+				<artifactId>gsf-api</artifactId>
+				<version>${xgg.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.baomidou</groupId>
@@ -68,27 +78,46 @@
 			<dependency>
 				<groupId>org.springframework.security.oauth.boot</groupId>
 				<artifactId>spring-security-oauth2-autoconfigure</artifactId>
-				<version>${oauth2-autoconfigure-version}</version>
+				<version>${oauth2-autoconfigure.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.mybatis.spring.boot</groupId>
 				<artifactId>mybatis-spring-boot-starter</artifactId>
-				<version>${mybatis-version}</version>
+				<version>${mybatis.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
-				<version>${commons-lang3-version}</version>
+				<version>${commons-lang3.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.github.penggle</groupId>
 				<artifactId>kaptcha</artifactId>
-				<version>${kaptcha-version}</version>
+				<version>${kaptcha.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cn.springcloud.dubbo</groupId>
+				<artifactId>spring-cloud-dubbo-starter</artifactId>
+				<version>${spring-cloud-dubbo.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
-				<version>${fastjson-version}</version>
+				<version>${fastjson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -97,6 +126,30 @@
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
 			<url>https://repo.spring.io/libs-milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>alimaven</id>
+			<name>aliyun maven</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>aliyun-central</id>
+			<name>aliyun central</name>
+			<url>https://maven.aliyun.com/repository/central</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>aliyun-spring</id>
+			<name>aliyun spring</name>
+			<url>https://maven.aliyun.com/repository/spring</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>

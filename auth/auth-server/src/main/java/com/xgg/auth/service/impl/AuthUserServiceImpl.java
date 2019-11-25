@@ -6,6 +6,7 @@ import com.xgg.auth.dao.AuthUserMapper;
 import com.xgg.auth.pojo.entity.AuthUserDO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
  * @author renchengwei
  * @since 2019-11-24
  */
-@Service
+@RestController
 public class AuthUserServiceImpl implements IAuthUserService {
 
     @Resource
