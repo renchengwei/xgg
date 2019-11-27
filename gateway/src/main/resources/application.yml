@@ -1,0 +1,26 @@
+server:
+  port: 18085
+
+spring:
+  application:
+    name: service-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: bsf-route
+          uri: lb://bsf-server
+          predicates:
+            - Path=/bsf/**
+        - id: auth-server
+          uri: lb://auth-server
+          predicates:
+            - Path=/auth/**
+management:
+  endpoint:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
