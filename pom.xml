@@ -20,8 +20,8 @@
 		<module>xgg-auth-session</module>-->
 		<module>auth/auth-server</module>
 		<module>auth/auth-api</module>
-		<module>jsf/gsf-api</module>
-		<module>jsf/jsf-server</module>
+		<module>bsf/bsf-api</module>
+		<module>bsf/bsf-server</module>
 		<!--<module>code-generator</module>-->
     </modules>
 
@@ -41,6 +41,7 @@
 		<spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
 		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
 		<spring-cloud-dubbo.version>1.0.0</spring-cloud-dubbo.version>
+		<mysql.version>5.1.48</mysql.version>
 	</properties>
 
 	<dependencyManagement>
@@ -52,7 +53,7 @@
 			</dependency>
 			<dependency>
 				<groupId>com.xgg</groupId>
-				<artifactId>gsf-api</artifactId>
+				<artifactId>bsf-api</artifactId>
 				<version>${xgg.version}</version>
 			</dependency>
 			<dependency>
@@ -101,6 +102,12 @@
 				<version>${spring-cloud-dubbo.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.version}</version>
+			</dependency>
+
+			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
 				<version>${fastjson.version}</version>
@@ -119,9 +126,21 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<repositories>
+		<!--<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>-->
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>

@@ -1,6 +1,6 @@
 package com.xgg.auth.service.impl;
 
-import com.xgg.auth.api.service.IAuthUserRoleService;
+import com.xgg.auth.service.IAuthUserRoleService;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,6 +1,6 @@
 package com.xgg.auth.service.impl;
 
-import com.xgg.auth.api.service.IOauthCodeService;
+import com.xgg.auth.service.IOauthCodeService;
 import org.springframework.stereotype.Service;
 
 /**

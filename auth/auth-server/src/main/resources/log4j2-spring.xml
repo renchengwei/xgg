@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN" packages="org.apache.logging.log4j.core.pattern">
+    <properties>
+        <property name="PID">????</property>
+        <property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</property>
+        <property name="LOG_LEVEL_PATTERN">%5p</property>
+        <property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd HH:mm:ss.SSS</property>
+        <property name="CONSOLE_LOG_PATTERN">%clr{%d{${LOG_DATEFORMAT_PATTERN}}}{faint} %clr{${LOG_LEVEL_PATTERN}} %clr{${sys:PID}}{magenta} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}</property>
+        <property name="FILE_LOG_PATTERN">%d{${LOG_DATEFORMAT_PATTERN}} ${LOG_LEVEL_PATTERN} ${sys:PID} --- [%t] %-40.40c{1.} : %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}</property>
+        <property name="LOG_PATH">e:/logs/auth-server</property>
+    </properties>
+
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${CONSOLE_LOG_PATTERN}" />
+        </Console>
+
+        <RollingFile name="BizLog" fileName="${LOG_PATH}/BizLog.log" filePattern="${LOG_PATH}/BizLog-$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${FILE_LOG_PATTERN}" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="250 MB" />
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="BizErrorLog" fileName="${LOG_PATH}/BizErrorLog.log" filePattern="${LOG_PATH}/BizErrorLog-$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${FILE_LOG_PATTERN}" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="250 MB" />
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="SysLog" fileName="${LOG_PATH}/SysLog.log" filePattern="${LOG_PATH}/SysLog-$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${FILE_LOG_PATTERN}" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="250 MB" />
+            </Policies>
+        </RollingFile>
+    </appenders>
+    <loggers>
+        <Logger name="com.xgg.auth" level="info" additivity="false">
+            <AppenderRef ref="BizLog" />
+        </Logger>
+
+        <Logger name="com.xgg.auth" level="error" additivity="false">
+            <AppenderRef ref="BizErrorLog" />
+        </Logger>
+
+        <Logger name="org.springframework.security" level="debug"/>
+
+        <root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="SysLog"/>
+        </root>
+    </loggers>
+</configuration>

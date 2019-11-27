@@ -1,6 +1,6 @@
 package com.xgg.auth.service.impl;
 
-import com.xgg.auth.api.service.IPersistentLoginsService;
+import com.xgg.auth.service.IPersistentLoginsService;
 import org.springframework.stereotype.Service;
 
 /**
