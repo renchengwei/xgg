@@ -17,7 +17,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableResourceServer
 public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
 
-    private static final String DEMO_RESOURCE_ID = "order";
+    private static final String DEMO_RESOURCE_ID = "AUTH";
     @Autowired
     private TokenStore tokenStore;
     @Override
@@ -29,13 +29,12 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.anonymous().disable()
-                .requestMatchers().antMatchers("/api/**")
+                .requestMatchers().antMatchers("/api/auth/**")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/**").authenticated()
+                .antMatchers("/api/auth/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .anonymous().disable();
-        //配置order访问控制，必须认证过后才可以访问
     }
 }

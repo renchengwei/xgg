@@ -1,5 +1,6 @@
 package com.xgg.auth.authentication;
 
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,6 +24,7 @@ public class DefaultSecurityUserDetailsService implements SecurityUserDetailsSer
     private static final String USERNAME_CACHE_KEY = "auth_server:user_details:username";
 
     @Autowired
+    @Setter
     private PasswordEncoder passwordEncoder;
 
     @Override

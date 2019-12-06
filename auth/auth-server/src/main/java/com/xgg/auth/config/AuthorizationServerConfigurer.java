@@ -35,9 +35,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * OAuth2授权服务配置文件
  * @author renchengwei
  * @date 2019-10-05
- * : TODO
  */
 @Configuration
 @EnableAuthorizationServer
@@ -57,7 +57,7 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     @Autowired
     private CaptchaProcessorHolder captchaProcessorHolder;
 
-    private static final String DEMO_RESOURCE_ID = "order";
+    private static final String DEMO_RESOURCE_ID = "AUTH";
     @Autowired
     private ClientDetailsService clientDetailsService;
 
@@ -65,24 +65,27 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 //        String finalSecret = new BCryptPasswordEncoder().encode("");
         /*clients.jdbc(dataSource);*/
+//        clients.jdbc()
         clients.inMemory().withClient("demo")
-                .resourceIds(DEMO_RESOURCE_ID)
+                .resourceIds(DEMO_RESOURCE_ID,"BSF")
                 .authorizedGrantTypes("password","refresh_token","sms","authorization_code","implicit")
                 .scopes("all")
-                .redirectUris("http://localhost:9001/callback");
+                .redirectUris("http://localhost:9001/callback").autoApprove(true)
+                .and()
+                .withClient("resource1")
+                .secret(passwordEncoder.encode("1234567"))
+                .resourceIds("resource1")
+                .authorizedGrantTypes("password")
+                .scopes("read");
+
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-       /* endpoints
-                .tokenStore(new RedisTokenStore(redisConnectionFactory))
-                .authenticationManager(authenticationManager)
-                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
-                .reuseRefreshTokens(true);*/
         endpoints.tokenStore(tokenStore())
                 .authenticationManager(authenticationManager)
-                .tokenGranter(tokenGranter(endpoints));
-        endpoints.tokenServices(customTokenServices());
+                .tokenGranter(tokenGranter(endpoints))
+                .tokenServices(customTokenServices());
     }
 
     private TokenGranter tokenGranter(final AuthorizationServerEndpointsConfigurer endpoints) {
@@ -96,7 +99,6 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
             smsAuthenticationProvider.setCaptchaProcessorHolder(captchaProcessorHolder);
             ((ProviderManager) authenticationManager).getProviders().add(smsAuthenticationProvider);
         }
-        endpoints.getClientDetailsService();
         return new CompositeTokenGranter(tokenGranters);
     }
 
@@ -110,7 +112,6 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
 
     @Bean
     public TokenStore tokenStore() {
-//        return new InMemoryTokenStore();
         return new RedisTokenStore(redisConnectionFactory);
     }
 
@@ -133,6 +134,6 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
                     userDetailsService));
             tokenServices
                     .setAuthenticationManager(new ProviderManager(Arrays.<AuthenticationProvider> asList(provider)));
-        }
+    }
     }
 }

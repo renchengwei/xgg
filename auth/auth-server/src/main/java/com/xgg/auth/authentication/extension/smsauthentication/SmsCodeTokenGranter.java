@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  *  @author renchengwei
  *  @date 2019-11-16
- *  : 短信授权登陆授权者，继承AbstractTokenGranter，内部依赖AuthenticationManager，一般是ProviderManager的实现，
+ *  短信授权登陆授权者，继承AbstractTokenGranter，内部依赖AuthenticationManager，一般是ProviderManager的实现，
  *  最终会通过调用SMSAuthenticationProvider完成用户信息校验
  */
 public class SmsCodeTokenGranter extends AbstractTokenGranter {
