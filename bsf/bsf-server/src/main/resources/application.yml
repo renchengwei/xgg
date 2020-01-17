@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   application:
@@ -8,15 +8,23 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
-security:
-  oauth2:
-    resource:
-      id: BSF
-      loadBalanced: true
-      prefer-token-info: true
-      user-info-uri: http://auth-server/oauth/check_token
-      service-id: auth-server
-      token-info-uri: http://localhost:8080/oauth/check_token
-    client:
-      client-id: resource1
-      client-secret: 1234567
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: 30fd815f9df054a159b7
+            client-secret: 043679e3a441d11a8a45858374310f3ff8c0292e
+
+#security:
+#  oauth2:
+#    resource:
+#      id: BSF
+##      loadBalanced: true
+##      prefer-token-info: true
+##      user-info-uri: http://auth-server/oauth/check_token
+#      service-id: auth-server
+#      token-info-uri: http://auth-server/oauth/check_token
+#    client:
+#      client-id: resource1
+#      client-secret: 1234567

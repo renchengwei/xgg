@@ -1,7 +1,7 @@
 package com.xgg.auth.authentication.captcha.image;
 
-import com.alibaba.fastjson.JSON;
 import com.xgg.auth.authentication.captcha.*;
+import com.xgg.auth.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,8 @@ public class ImageCaptchaProcessor extends AbstractCaptchaProcessor<ImageCaptcha
         HttpServletResponse response = request.getResponse();
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(JSON.toJSONString(captchaVO));
+        response.getWriter().write(JacksonUtils.obj2json(captchaVO));
+
     }
 
     @Override

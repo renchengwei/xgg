@@ -3,8 +3,6 @@ package com.xgg.auth.authentication.captcha;
 import com.xgg.auth.support.strategy.IStrategy;
 import org.springframework.web.context.request.ServletWebRequest;
 
-import java.io.IOException;
-
 /**
  * 验证码处理器接口
  * @author renchengwei
@@ -18,7 +16,7 @@ public interface CaptchaProcessor extends IStrategy<CaptchaTypeEnum> {
      * @throws Exception
      * @return Captcha 验证码
      */
-    Captcha create(ServletWebRequest request) throws IOException;
+    Captcha create(ServletWebRequest request) throws Exception;
 
     Captcha getCaptcha(String captchaToken,CaptchaTypeEnum captchaTypeEnum);
     /**

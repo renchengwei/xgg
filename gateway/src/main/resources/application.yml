@@ -18,9 +18,15 @@ spring:
           uri: lb://auth-server
           predicates:
             - Path=/auth/**,/oauth/**
+
 management:
   endpoint:
   endpoints:
     web:
       exposure:
         include: "*"
+logging:
+  level:
+#    root: debug
+    org.springframework.boot.autoconfigure.security: debug
+

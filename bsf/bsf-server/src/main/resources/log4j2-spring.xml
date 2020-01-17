@@ -47,7 +47,8 @@
         <Logger name="com.xgg.bsf" level="error" additivity="false">
             <AppenderRef ref="BizErrorLog" />
         </Logger>
-
+        <Logger name="org.springframework.security" level="debug"/>
+<!--        <Logger name="org.springframework.boot.autoconfigure" level="debug"/>-->
         <root level="info">
             <AppenderRef ref="Console" />
             <AppenderRef ref="SysLog"/>

@@ -45,13 +45,13 @@
 		</dependency>
 		<!-- 权限安全 -->
 		<dependency>
-			<groupId>org.springframework.security.oauth.boot</groupId>
-			<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-oauth2</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-starter-security</artifactId>-->
+<!--		</dependency>-->
 		<!-- 缓存 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -94,10 +94,10 @@
 			<groupId>com.github.penggle</groupId>
 			<artifactId>kaptcha</artifactId>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-		</dependency>
+		</dependency>-->
 		<!-- 测试 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

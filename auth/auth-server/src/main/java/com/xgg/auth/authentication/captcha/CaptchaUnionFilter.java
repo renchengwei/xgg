@@ -1,7 +1,7 @@
 package com.xgg.auth.authentication.captcha;
 
-import com.alibaba.fastjson.JSON;
 import com.xgg.auth.properties.SecurityProperties;
+import com.xgg.auth.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpMethod;
@@ -167,6 +167,6 @@ public class CaptchaUnionFilter extends OncePerRequestFilter {
             throws IOException {
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(JSON.toJSONString("验证码错误"));
+        response.getWriter().write(JacksonUtils.obj2json("验证码错误"));
     }
 }
