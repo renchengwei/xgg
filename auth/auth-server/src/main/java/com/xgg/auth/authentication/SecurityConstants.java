@@ -1,5 +1,7 @@
 package com.xgg.auth.authentication;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 维护安全模块的静态常量
  * @author renchengwei
